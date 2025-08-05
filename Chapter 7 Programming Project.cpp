@@ -26,6 +26,7 @@ int main() {
 	wrongCnt = gradeExam(answerKey, studentTest, numQuestions, wrongAnsQuestNum, wrongAns, correctAns);
 
 	// report the results
+	cout << "Number of Questions: " << numQuestions << "  Number Wrong: " << wrongCnt << endl;
 	writeReport(wrongAnsQuestNum, wrongAns, correctAns, wrongCnt, numQuestions);
 
 
@@ -81,6 +82,14 @@ int gradeExam(  char* answerKey,   char* StudentAnswers, int numQuestions
 			wrongNum[wrongCnt] = i; // Wrong
 			wrongAnswer[wrongCnt] = StudentAnswers[i]; // Wrong
 			correctAnswer[wrongCnt] = answerKey[i]; // Wrong
+			
+			cout << StudentAnswers[i] << " != " << answerKey[i] << endl; // Output the wrong answer
+			cout << "Question " << i + 1 << " is wrong. Your answer: "
+				<< StudentAnswers[i] << ", Correct answer: " << answerKey[i] << endl;
+			cout << "Question " << wrongNum[wrongCnt] + 1 << " is wrong. Your answer: "
+				<< wrongAnswer[wrongCnt] << ", Correct answer: " << correctAnswer[wrongCnt] << endl;
+
+
 			wrongCnt++; // Increment wrong answer count
 		}
 	}
@@ -102,7 +111,9 @@ void writeReport(int* wrongAnsNum, char* wrongAns, char* correctAns, int numWron
 	cout << "Question       Correct Answers     Your Answer " << endl;
 	cout << "-----------    ---------------     ------------ " << endl;
 	for (int i = 0; i < numWrong; i++) {
-		cout << wrongAnsNum[i] + 1 << setw(10) << correctAns[i] << setw(20) << wrongAns[i] << endl;
+		//cout << wrongAnsNum[i] + 1 << setw(10) << correctAns[i] << setw(20) << wrongAns[i] << endl;
+		cout << i + 1 << endl;
+		cout << wrongAnsNum[i] + 1 << correctAns[i] << wrongAns[i] << endl;
 	}
 
 	double finalScore = (totalQuestions - numWrong) * 100.0 / totalQuestions;
