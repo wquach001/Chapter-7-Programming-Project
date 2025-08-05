@@ -8,7 +8,7 @@ using namespace std;
 
 char* getAnswers(std::string filename, int& numQuestions);
 char* gradeExam(char* answerKey, char* StudentAnswers, int numQuestions
-	            , char* wrongAnsNum, char* wrongAns, char* correctAns, int& wrongCnt);
+	            , int* wrongAnsNum, char* wrongAns, char* correctAns, int& wrongCnt);
 void writeReport ();
 
 int main() {
@@ -60,18 +60,26 @@ char* getAnswers(std::string filename, int& numQuestions)
 // Function to grade the exam based on the answer key and student answers
 // This function will compare the two arrays and return a score or feedback
 char* gradeExam(  char* answerKey,   char* StudentAnswers, int numQuestions
-	            , char* wrongAnsNum, char* wrongAns, char* correctAns, int& wrongCnt)
+	            , int* wrongAnsNum, char* wrongAns, char* correctAns, int& wrongCnt)
 {
 
 	char* result = new char[numQuestions];
+	int* wrongAnsNum = new char[numQuestions];
+	char* wrongAns = new char[numQuestions];
+	char* correctAns = new char[numQuestions];
+	wrongCnt = 0;
 
 	for (int i = 0; i < numQuestions; i++) {
-		if (studentAnswers[i] == answerKey[i])
+		if (StudentAnswers[i] == answerKey[i])
 			result[i] = 'C'; // Correct
-		else
-			result[i] = 'W'; // Wrong
+		else {
+			wrongAnsNum[wrongCnt] = i; // Wrong
+			wrongAns[wrongCnt] = StudentAnswers[i]; // Wrong
+			correctAns[wrongCnt] = answerKey[i]; // Wrong
+			wrongCnt++; // Increment wrong answer count
+		}
 	}
-
+	wrongCnt--
 	return result;
 
 	return nullptr; // Placeholder return, replace with actual grading logic
