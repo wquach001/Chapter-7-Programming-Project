@@ -27,6 +27,10 @@ int main() {
 
 	// report the results
 	cout << "Number of Questions: " << numQuestions << "  Number Wrong: " << wrongCnt << endl;
+	for (int i = 0; i < wrongCnt; i++) {
+		cout << "Question " << wrongAnsQuestNum[wrongCnt] + 1 << " is wrong. Your answer: "
+			<< wrongAns[wrongCnt] << ", Correct answer: " << correctAns[wrongCnt] << endl;
+	}
 	writeReport(wrongAnsQuestNum, wrongAns, correctAns, wrongCnt, numQuestions);
 
 
@@ -79,9 +83,9 @@ int gradeExam(  char* answerKey,   char* StudentAnswers, int numQuestions
 		if (StudentAnswers[i] == answerKey[i])
 			cout<< StudentAnswers[i] << " = " << answerKey[i] << endl; // Correct
 		else {
-			wrongNum[wrongCnt] = i; // Wrong
-			wrongAnswer[wrongCnt] = StudentAnswers[i]; // Wrong
-			correctAnswer[wrongCnt] = answerKey[i]; // Wrong
+			wrongNum[wrongCnt] = i; // problem number got Wrong
+			wrongAnswer[wrongCnt] = StudentAnswers[i]; // Wrong answers
+			correctAnswer[wrongCnt] = answerKey[i]; // right answers
 			
 			cout << StudentAnswers[i] << " != " << answerKey[i] << endl; // Output the wrong answer
 			cout << "Question " << i + 1 << " is wrong. Your answer: "
