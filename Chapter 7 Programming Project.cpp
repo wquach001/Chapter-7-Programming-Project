@@ -23,14 +23,14 @@ int main() {
 	char* studentTest = getAnswers("StudentAnswers.txt", studentQuestions);
 
 	//Grade the student's work
+	wrongAnsQuestNum = new int[numQuestions];
+	wrongAns = new char[numQuestions];
+	correctAns = new char[numQuestions];
+
 	wrongCnt = gradeExam(answerKey, studentTest, numQuestions, wrongAnsQuestNum, wrongAns, correctAns);
 
 	// report the results
 	cout << "Number of Questions: " << numQuestions << "  Number Wrong: " << wrongCnt << endl;
-	for (int i = 0; i < wrongCnt; i++) {
-		cout << "Question " << wrongAnsQuestNum[wrongCnt] + 1 << " is wrong. Your answer: "
-			<< wrongAns[wrongCnt] << ", Correct answer: " << correctAns[wrongCnt] << endl;
-	}
 	writeReport(wrongAnsQuestNum, wrongAns, correctAns, wrongCnt, numQuestions);
 
 
@@ -73,25 +73,21 @@ int gradeExam(  char* answerKey,   char* StudentAnswers, int numQuestions
 	            , int* wrongAnsNum, char* wrongAns, char* correctAns)
 {
 
-	char* result = new char[numQuestions];
-	int* wrongNum = new int[numQuestions];
-	char* wrongAnswer = new char[numQuestions];
-	char* correctAnswer = new char[numQuestions];
 	int wrongCnt = 0;
 
 	for (int i = 0; i < numQuestions; i++) {
 		if (StudentAnswers[i] == answerKey[i])
 			cout<< StudentAnswers[i] << " = " << answerKey[i] << endl; // Correct
 		else {
-			wrongNum[wrongCnt] = i; // problem number got Wrong
-			wrongAnswer[wrongCnt] = StudentAnswers[i]; // Wrong answers
-			correctAnswer[wrongCnt] = answerKey[i]; // right answers
+			wrongAnsNum[wrongCnt] = i; // problem number got Wrong
+			wrongAns[wrongCnt] = StudentAnswers[i]; // Wrong answers
+			correctAns[wrongCnt] = answerKey[i]; // right answers
 			
 			cout << StudentAnswers[i] << " != " << answerKey[i] << endl; // Output the wrong answer
 			cout << "Question " << i + 1 << " is wrong. Your answer: "
 				<< StudentAnswers[i] << ", Correct answer: " << answerKey[i] << endl;
-			cout << "Question " << wrongNum[wrongCnt] + 1 << " is wrong. Your answer: "
-				<< wrongAnswer[wrongCnt] << ", Correct answer: " << correctAnswer[wrongCnt] << endl;
+			//cout << "Question " << wrongAnsNum[wrongCnt] + 1 << " is wrong. Your answer: "
+			//	<< wrongAns[wrongCnt] << ", Correct answer: " << correctAns[wrongCnt] << endl;
 
 
 			wrongCnt++; // Increment wrong answer count
@@ -115,9 +111,8 @@ void writeReport(int* wrongAnsNum, char* wrongAns, char* correctAns, int numWron
 	cout << "Question       Correct Answers     Your Answer " << endl;
 	cout << "-----------    ---------------     ------------ " << endl;
 	for (int i = 0; i < numWrong; i++) {
-		//cout << wrongAnsNum[i] + 1 << setw(10) << correctAns[i] << setw(20) << wrongAns[i] << endl;
-		cout << i + 1 << endl;
-		cout << wrongAnsNum[i] + 1 << correctAns[i] << wrongAns[i] << endl;
+		cout << "     " << wrongAnsNum[i] + 1 << setw(15) << correctAns[i] << setw(20) << wrongAns[i] << endl;
+		//cout << wrongAnsNum[i] + 1 << correctAns[i] << wrongAns[i] << endl;
 	}
 
 	double finalScore = (totalQuestions - numWrong) * 100.0 / totalQuestions;
