@@ -81,4 +81,5 @@ int gradeExam(  char* answerKey,   char* StudentAnswers, int numQuestions
 	}
 	return wrongCnt;
 
-}
+}   // END gradeExam()
+
