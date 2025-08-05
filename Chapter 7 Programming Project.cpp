@@ -4,12 +4,12 @@ using namespace std;
 #include <iostream>
 #include <fstream> // For file operations
 #include <string> // For string class
-
+#include <iomanip>  // for setw
 
 char* getAnswers(std::string filename, int& numQuestions);
 int gradeExam(char* answerKey, char* StudentAnswers, int numQuestions
 	            , int* wrongAnsNum, char* wrongAns, char* correctAns);
-void writeReport ();
+void writeReport (int* wrongAnsNum, char* wrongAns, char* correctAns, int numWrong, int totalQuestions);
 
 int main() {
 	int numQuestions = 0; // Variable to hold the number of questions
@@ -21,8 +21,13 @@ int main() {
 
 	char* answerKey = getAnswers("CorrectAnswers.txt", numQuestions);
 	char* studentTest = getAnswers("StudentAnswers.txt", studentQuestions);
-	//char* report = gradeExam(answerKey, studentTest, numQuestions);
+
+	//Grade the student's work
 	wrongCnt = gradeExam(answerKey, studentTest, numQuestions, wrongAnsQuestNum, wrongAns, correctAns);
+
+	// report the results
+	writeReport(wrongAnsQuestNum, wrongAns, correctAns, wrongCnt, numQuestions);
+
 
 	return 0; // Indicate successful program execution
 }   // END main()
@@ -82,4 +87,31 @@ int gradeExam(  char* answerKey,   char* StudentAnswers, int numQuestions
 	return wrongCnt;
 
 }   // END gradeExam()
+
+// Function to write a report
+void writeReport(int* wrongAnsNum, char* wrongAns, char* correctAns, int numWrong, int totalQuestions)
+{
+	//ofstream reportFile("Report.txt");
+	//if (!reportFile.is_open()) {
+	//	cerr << "Error: Could not open Report.txt" << endl;
+	//	return;
+	//}
+	cout << "Exam Report Details " << endl;
+	cout << "Number of Questions Missed :  " << numWrong << endl;
+	cout << "Missed Questions and Correct Answers: " << endl;
+	cout << "Question       Correct Answers     Your Answer " << endl;
+	cout << "-----------    ---------------     ------------ " << endl;
+	for (int i = 0; i < numWrong; i++) {
+		cout << wrongAnsNum[i] + 1 << setw(10) << correctAns[i] << setw(20) << wrongAns[i] << endl;
+	}
+
+	double finalScore = (totalQuestions - numWrong) * 100.0 / totalQuestions;
+	cout << "Test Score :  " << finalScore << endl;
+	if (finalScore > 70) {
+		cout << "You PASSED the exam. :-)" << endl;
+	} else {
+		cout << "You FAILED the exam. :-(" << endl;
+	}
+}
+
 
