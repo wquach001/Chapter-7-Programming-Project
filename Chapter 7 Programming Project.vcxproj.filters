@@ -19,4 +19,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\Downloads\StudentAnswers.txt" />
+    <Text Include="..\..\..\Downloads\CorrectAnswers.txt" />
+    <Text Include="CorrectAnswers.txt" />
+    <Text Include="StudentAnswers.txt" />
+  </ItemGroup>
 </Project>

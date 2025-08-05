@@ -125,6 +125,12 @@
   <ItemGroup>
     <ClCompile Include="Chapter 7 Programming Project.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\Downloads\CorrectAnswers.txt" />
+    <Text Include="..\..\..\Downloads\StudentAnswers.txt" />
+    <Text Include="CorrectAnswers.txt" />
+    <Text Include="StudentAnswers.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
